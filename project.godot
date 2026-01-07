@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Old School Legends"
+run/main_scene="uid://0s6q8j1ngwiv"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+SignalBus="*res://scrpits/core/signal_bus.gd"
+Option="*res://scrpits/core/option.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+
+[file_customization]
+
+folder_colors={
+"res://resources/": "red",
+"res://scenes/": "orange",
+"res://scrpits/": "yellow"
+}

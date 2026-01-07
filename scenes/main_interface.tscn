@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://0s6q8j1ngwiv"]
+
+[ext_resource type="Script" uid="uid://b2mjkd1662wy7" path="res://scrpits/interface/main_interface.gd" id="1_7qx7d"]
+[ext_resource type="Script" uid="uid://bphq4gpf14is5" path="res://scrpits/interface/input_manager.gd" id="2_51bk3"]
+[ext_resource type="Script" uid="uid://bdaaq4b3oxr2l" path="res://scrpits/interface/output_manager.gd" id="3_efbr5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hlda6"]
+bg_color = Color(0.08078333, 0.08078336, 0.08078327, 1)
+
+[node name="MainInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7qx7d")
+
+[node name="MainOutput_RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 619.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_hlda6")
+bbcode_enabled = true
+fit_content = true
+scroll_following = true
+scroll_following_visible_characters = true
+vertical_alignment = 2
+
+[node name="InputLine_LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_top = 619.0
+offset_right = 1152.0
+offset_bottom = 650.0
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="InputManager" type="Node" parent="Manager"]
+script = ExtResource("2_51bk3")
+
+[node name="OutputManager" type="Node" parent="Manager"]
+script = ExtResource("3_efbr5")
+
+[connection signal="text_submitted" from="InputLine_LineEdit" to="Manager/InputManager" method="_on_input_line_line_edit_text_submitted"]
