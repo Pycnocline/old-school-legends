@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PlayerState" load_steps=2 format=3 uid="uid://dtgytf2j15mc5"]
+
+[ext_resource type="Script" uid="uid://lui584epbym2" path="res://scrpits/resource/player_state.gd" id="1_lhbj4"]
+
+[resource]
+script = ExtResource("1_lhbj4")
+name = "Player"
+position_id = "test_destination"
+metadata/_custom_type_script = "uid://lui584epbym2"

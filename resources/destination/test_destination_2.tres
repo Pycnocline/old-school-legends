@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Destination" load_steps=2 format=3 uid="uid://i8smpor1pmua"]
+
+[ext_resource type="Script" uid="uid://b6v4gmp70jwvb" path="res://scrpits/resource/destination.gd" id="1_5d0vu"]
+
+[resource]
+script = ExtResource("1_5d0vu")
+id = "test_destination_2"
+name = "测试目的地2"
+description = "这是一个用来测试的目的地，代号为2"
+metadata/_custom_type_script = "uid://b6v4gmp70jwvb"

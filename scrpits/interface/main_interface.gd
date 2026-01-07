@@ -4,4 +4,8 @@ extends Control
 @onready var input_line_line_edit: LineEdit = $InputLine_LineEdit
 
 func _ready() -> void:
-	pass
+	SignalBus.message_output.emit("启动游戏...")
+	Gamedb.load_all_destinations()
+	Gamedb.load_all_destination_connect()
+	Gamedb.load_player_state()
+	SignalBus.message_output.emit("启动完毕")

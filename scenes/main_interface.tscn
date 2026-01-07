@@ -20,11 +20,10 @@ script = ExtResource("1_7qx7d")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 619.0
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_hlda6")
 bbcode_enabled = true
-fit_content = true
 scroll_following = true
-scroll_following_visible_characters = true
 vertical_alignment = 2
 
 [node name="InputLine_LineEdit" type="LineEdit" parent="."]
@@ -32,6 +31,7 @@ layout_mode = 0
 offset_top = 619.0
 offset_right = 1152.0
 offset_bottom = 650.0
+keep_editing_on_text_submit = true
 
 [node name="Manager" type="Node" parent="."]
 
