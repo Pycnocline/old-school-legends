@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Destination" load_steps=4 format=3 uid="uid://ckitilk74xjf6"]
+
+[ext_resource type="Script" uid="uid://bxfmkmeop1gtj" path="res://scrpits/resource/exit_data.gd" id="1_4hx4k"]
+[ext_resource type="Resource" uid="uid://dfkbbdm4m3jam" path="res://resources/destination/test_destination_2/exi_test_destination.tres" id="2_x1ate"]
+[ext_resource type="Script" uid="uid://b6v4gmp70jwvb" path="res://scrpits/resource/destination.gd" id="3_b8nx2"]
+
+[resource]
+script = ExtResource("3_b8nx2")
+id = "test_destination_2"
+name = "测试目的地2"
+description = "这是一个仅用来测试的目的地，编号为2"
+exits = Array[ExtResource("1_4hx4k")]([ExtResource("2_x1ate")])
+metadata/_custom_type_script = "uid://b6v4gmp70jwvb"
