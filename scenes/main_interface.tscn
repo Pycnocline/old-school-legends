@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://0s6q8j1ngwiv"]
+[gd_scene load_steps=6 format=3 uid="uid://0s6q8j1ngwiv"]
 
 [ext_resource type="Script" uid="uid://b2mjkd1662wy7" path="res://scrpits/interface/main_interface.gd" id="1_7qx7d"]
 [ext_resource type="Script" uid="uid://bphq4gpf14is5" path="res://scrpits/interface/input_manager.gd" id="2_51bk3"]
 [ext_resource type="Script" uid="uid://bdaaq4b3oxr2l" path="res://scrpits/interface/output_manager.gd" id="3_efbr5"]
+[ext_resource type="Script" uid="uid://c7usolx1rw1n6" path="res://scrpits/interface/timer_manager.gd" id="4_rgrph"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hlda6"]
 bg_color = Color(0.08078333, 0.08078336, 0.08078327, 1)
@@ -33,6 +34,9 @@ offset_right = 1152.0
 offset_bottom = 650.0
 keep_editing_on_text_submit = true
 
+[node name="GameCircle_Timer" type="Timer" parent="."]
+ignore_time_scale = true
+
 [node name="Manager" type="Node" parent="."]
 
 [node name="InputManager" type="Node" parent="Manager"]
@@ -41,4 +45,8 @@ script = ExtResource("2_51bk3")
 [node name="OutputManager" type="Node" parent="Manager"]
 script = ExtResource("3_efbr5")
 
+[node name="TimerManager" type="Node" parent="Manager"]
+script = ExtResource("4_rgrph")
+
 [connection signal="text_submitted" from="InputLine_LineEdit" to="Manager/InputManager" method="_on_input_line_line_edit_text_submitted"]
+[connection signal="timeout" from="GameCircle_Timer" to="." method="_on_game_circle_timer_timeout"]

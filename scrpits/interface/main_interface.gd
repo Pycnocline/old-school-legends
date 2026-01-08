@@ -2,6 +2,7 @@ extends Control
 
 @onready var main_output_rich_text_label: RichTextLabel = $MainOutput_RichTextLabel
 @onready var input_line_line_edit: LineEdit = $InputLine_LineEdit
+@onready var game_circle_timer: Timer = $GameCircle_Timer
 
 func _ready() -> void:
 	SignalBus.message_output.emit("启动游戏...")
@@ -9,3 +10,9 @@ func _ready() -> void:
 	Gamedb.load_all_destination_connect()
 	Gamedb.load_player_state()
 	SignalBus.message_output.emit("启动完毕")
+	
+	game_circle_timer.start()
+
+
+func _on_game_circle_timer_timeout() -> void:
+	GameManager.do_game_circle()

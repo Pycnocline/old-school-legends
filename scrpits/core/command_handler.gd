@@ -6,3 +6,9 @@ func handle_command(command:String) -> void:
 			GameManager.output_state()
 		"/move":
 			GameManager.look_to_move()
+		"/roaming":
+			GameManager.set_game_state("roaming")
+		"/pause":
+			GameManager.set_game_state("pause")
+		"/speedup":
+			GameManager.set_game_state("speedup")
