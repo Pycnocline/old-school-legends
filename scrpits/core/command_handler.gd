@@ -12,3 +12,5 @@ func handle_command(command:String) -> void:
 			GameManager.set_game_state("pause")
 		"/speedup":
 			GameManager.set_game_state("speedup")
+		"/lookaround":
+			GameManager.look_for_item()

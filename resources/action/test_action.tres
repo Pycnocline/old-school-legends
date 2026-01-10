@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TestAction" load_steps=2 format=3 uid="uid://kyimoha5m77w"]
+
+[ext_resource type="Script" uid="uid://dwk2aa0spt5g" path="res://scrpits/resource/action/test_action.gd" id="1_23ha3"]
+
+[resource]
+script = ExtResource("1_23ha3")
+message = "哇袄！！！"
+metadata/_custom_type_script = "uid://dwk2aa0spt5g"

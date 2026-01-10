@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PlayerState" load_steps=2 format=3 uid="uid://dtgytf2j15mc5"]
+[gd_resource type="Resource" script_class="PlayerState" load_steps=3 format=3 uid="uid://dtgytf2j15mc5"]
 
 [ext_resource type="Script" uid="uid://lui584epbym2" path="res://scrpits/resource/player_state.gd" id="1_lhbj4"]
+[ext_resource type="Resource" uid="uid://crl0suxrvv2s6" path="res://resources/destination/test_destination.tres" id="1_pfmwv"]
 
 [resource]
 script = ExtResource("1_lhbj4")
 name = "Player"
-position_id = "test_destination"
+position = ExtResource("1_pfmwv")
 metadata/_custom_type_script = "uid://lui584epbym2"

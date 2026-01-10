@@ -40,6 +40,10 @@ func load_all_destination_connect() -> void:
 			file_name = dir.get_next()
 	SignalBus.message_output.emit("共注册了" + str(all_destination_connect.size()) + "个目的地连接")
 
+func load_all_items() -> void:
+	SignalBus.message_output.emit("开始注册物品...")
+	
+
 func load_player_state() -> void:
 	SignalBus.message_output.emit("开始注册玩家信息...")
 	player_state = load("res://resources/player/player_state.tres")
