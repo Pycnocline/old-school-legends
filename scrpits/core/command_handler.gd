@@ -3,7 +3,7 @@ extends Node
 func handle_command(command:String) -> void:
 	match command:
 		"/info":
-			GameManager.output_state()
+			GameHost.show_info_panel()
 		"/move":
 			GameManager.look_to_move()
 		"/roaming":

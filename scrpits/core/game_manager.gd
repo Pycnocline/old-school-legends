@@ -36,10 +36,7 @@ func move_to(id:String) -> void:
 	SignalBus.message_output.emit("移动完成")
 	
 func do_game_circle() -> void:
-	Gamedb.game_time += 1
-	var game_time = Gamedb.get_game_time()
-	var hour_minute_str:String = "%02d:%02d" % [game_time.hour, game_time.minute]
-	DisplayServer.window_set_title("Old School Legends - Y" + str(game_time.year) + "D" + str(game_time.day) + " " + hour_minute_str)
+	DisplayServer.window_set_title("Old School Legends - " + TimeSystem.get_time_string())
 
 func set_game_state(state:String) -> void:
 	SignalBus.game_circle_timer_control.emit(state)

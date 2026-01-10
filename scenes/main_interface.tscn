@@ -50,3 +50,4 @@ script = ExtResource("4_rgrph")
 
 [connection signal="text_submitted" from="InputLine_LineEdit" to="Manager/InputManager" method="_on_input_line_line_edit_text_submitted"]
 [connection signal="timeout" from="GameCircle_Timer" to="." method="_on_game_circle_timer_timeout"]
+[connection signal="timeout" from="GameCircle_Timer" to="Manager/TimerManager" method="_on_game_circle_timer_timeout"]

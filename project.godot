@@ -22,6 +22,8 @@ Option="*res://scrpits/core/option.gd"
 Gamedb="*res://scrpits/core/gamedb.gd"
 GameManager="*res://scrpits/core/game_manager.gd"
 CommandHandler="*res://scrpits/core/command_handler.gd"
+TimeSystem="*res://scrpits/core/time_system.gd"
+GameHost="*res://scrpits/core/game_host.gd"
 
 [display]
 

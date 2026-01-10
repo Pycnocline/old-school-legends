@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://do4sukl330wj4"]
+
+[ext_resource type="Script" uid="uid://clbd5qvixut8n" path="res://scrpits/resource/player_data.gd" id="1_1adj8"]
+
+[resource]
+script = ExtResource("1_1adj8")
+id = "hp"
+name = "体力"
+description = "在体力归零时会去世"
+upper_limit = 100
+value = 100
+metadata/_custom_type_script = "uid://clbd5qvixut8n"

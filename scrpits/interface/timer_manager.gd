@@ -18,3 +18,7 @@ func _game_circle_timer_control(type:String) -> void:
 			game_circle_timer.stop()
 			game_circle_timer.wait_time = 0.01
 			game_circle_timer.start()
+
+
+func _on_game_circle_timer_timeout() -> void:
+	SignalBus.time_tick.emit()
