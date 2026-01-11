@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalBus="*res://scrpits/core/signal_bus.gd"
-Option="*res://scrpits/core/option.gd"
 Gamedb="*res://scrpits/core/gamedb.gd"
+Option="*res://scrpits/core/option.gd"
 GameManager="*res://scrpits/core/game_manager.gd"
 CommandHandler="*res://scrpits/core/command_handler.gd"
 TimeSystem="*res://scrpits/core/time_system.gd"

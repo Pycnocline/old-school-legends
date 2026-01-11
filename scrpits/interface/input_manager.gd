@@ -23,4 +23,9 @@ func _on_input_line_line_edit_text_submitted(new_text: String) -> void:
 	print("收到用户输入：" + new_text)
 	
 func _on_text_clicked(meta) -> void:
-	GameManager.move_to(meta)
+	var cliped_meta = meta.split("/")
+	var clicked_time: int = int(cliped_meta[0])
+	var current_time: int = int(GameHost.last_control_time_stamp)
+	if clicked_time != current_time:
+		return
+	SignalBus.text_meta_clicked.emit(cliped_meta)

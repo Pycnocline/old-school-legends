@@ -46,4 +46,5 @@ func load_all_items() -> void:
 func load_player_state() -> void:
 	SignalBus.message_output.emit("开始注册玩家信息...")
 	player_state = load("res://resources/player/player_state.tres")
+	SignalBus.message_output.emit(player_state.position.name)
 	SignalBus.message_output.emit("完成玩家信息注册")

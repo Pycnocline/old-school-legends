@@ -8,3 +8,5 @@ signal time_tick()		#新的一分钟
 signal time_ticked()		#时间已更新，按照新时间进行游戏循环
 
 signal player_data_signal(id:String, limit:bool)		#玩家数据达到上限或下限时触发事件，true为上限
+
+signal text_meta_clicked(meta:Array)		#文字超链接被点击
