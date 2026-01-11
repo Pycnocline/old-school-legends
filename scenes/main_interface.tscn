@@ -37,6 +37,10 @@ keep_editing_on_text_submit = true
 [node name="GameCircle_Timer" type="Timer" parent="."]
 ignore_time_scale = true
 
+[node name="Output_Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
 [node name="Manager" type="Node" parent="."]
 
 [node name="InputManager" type="Node" parent="Manager"]
@@ -51,3 +55,4 @@ script = ExtResource("4_rgrph")
 [connection signal="text_submitted" from="InputLine_LineEdit" to="Manager/InputManager" method="_on_input_line_line_edit_text_submitted"]
 [connection signal="timeout" from="GameCircle_Timer" to="." method="_on_game_circle_timer_timeout"]
 [connection signal="timeout" from="GameCircle_Timer" to="Manager/TimerManager" method="_on_game_circle_timer_timeout"]
+[connection signal="timeout" from="Output_Timer" to="Manager/OutputManager" method="_on_output_timer_timeout"]

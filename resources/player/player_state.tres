@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://clbd5qvixut8n" path="res://scrpits/resource/player_data.gd" id="1_fm8p2"]
 [ext_resource type="Script" uid="uid://lui584epbym2" path="res://scrpits/resource/player_state.gd" id="1_lhbj4"]
 [ext_resource type="Resource" uid="uid://crl0suxrvv2s6" path="res://resources/destination/test_destination.tres" id="1_pfmwv"]
-[ext_resource type="Resource" uid="uid://do4sukl330wj4" path="res://resources/player/hp.tres" id="2_uhx3m"]
-[ext_resource type="Resource" uid="uid://c56hngn0vehss" path="res://resources/player/mp.tres" id="3_uhx3m"]
+[ext_resource type="Resource" uid="uid://do4sukl330wj4" path="res://resources/character_data/hp.tres" id="2_uhx3m"]
+[ext_resource type="Resource" uid="uid://c56hngn0vehss" path="res://resources/character_data/mp.tres" id="3_uhx3m"]
 
 [resource]
 script = ExtResource("1_lhbj4")
