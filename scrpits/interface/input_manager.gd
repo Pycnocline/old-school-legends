@@ -24,8 +24,9 @@ func _on_input_line_line_edit_text_submitted(new_text: String) -> void:
 	
 func _on_text_clicked(meta) -> void:
 	var cliped_meta = meta.split("/")
-	var clicked_time: int = int(cliped_meta[0])
+	var clicked_time: int = int(cliped_meta[1])
 	var current_time: int = int(GameHost.last_control_time_stamp)
 	if clicked_time != current_time:
 		return
+	SignalBus.message_output.emit("[color=gray][i]<<" + cliped_meta[0] + ">>[/i][/color]")
 	SignalBus.text_meta_clicked.emit(cliped_meta)

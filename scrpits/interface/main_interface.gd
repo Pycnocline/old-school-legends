@@ -12,6 +12,7 @@ func _ready() -> void:
 	SignalBus.message_output.emit("启动完毕")
 	
 	game_circle_timer.start()
+	GameHost.show_info_panel()
 
 
 func _on_game_circle_timer_timeout() -> void:

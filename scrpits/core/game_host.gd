@@ -21,11 +21,11 @@ func show_info_panel() -> void:
 	SignalBus.message_output.emit("▼[可用行动列表]--------------------")
 	
 	var available_action: Array = [
-		"[url=" + str(last_control_time_stamp) + "/gamehost/move][wave]>> 移动 <<[/wave][/url]",
-		"[url=" + str(last_control_time_stamp) + "/gamehost/wait][wave]>> 等待 <<[/wave][/url]",
-		"[url=" + str(last_control_time_stamp) + "/gamehost/pause][wave]>> 暂停 <<[/wave][/url]",
-		"[url=" + str(last_control_time_stamp) + "/gamehost/bag][wave]>> 背包 <<[/wave][/url]",
-		"[url=" + str(last_control_time_stamp) + "/gamehost/lookaround][wave]>> 观察四周 <<[/wave][/url]",
+		"[url=" + "移动/" + str(last_control_time_stamp) + "/gamehost/move][wave]>> 移动 <<[/wave][/url]",
+		"[url=" + "等待/" + str(last_control_time_stamp) + "/gamehost/wait][wave]>> 等待 <<[/wave][/url]",
+		"[url=" + "暂停/" + str(last_control_time_stamp) + "/gamehost/pause][wave]>> 暂停 <<[/wave][/url]",
+		"[url=" + "背包/" + str(last_control_time_stamp) + "/gamehost/bag][wave]>> 背包 <<[/wave][/url]",
+		"[url=" + "观察四周/" + str(last_control_time_stamp) + "/gamehost/lookaround][wave]>> 观察四周 <<[/wave][/url]",
 	]
 	
 	var object = 0
@@ -33,7 +33,7 @@ func show_info_panel() -> void:
 	for action in available_action:
 		object += 1
 		action_text += action + "          "
-		if object % 4 == 0:
+		if object % 5 == 0:
 			SignalBus.message_output.emit(action_text)
 			action_text = "    "
 	if action_text != "    ":
@@ -42,7 +42,6 @@ func show_info_panel() -> void:
 func look_to_move() -> void:
 	last_control_time_stamp = int(Time.get_unix_time_from_system())
 	
-	SignalBus.message_output.emit("[hr]")
 	SignalBus.message_output.emit(Gamedb.player_state.name + "看了看四周，寻找能移动到的目的地...")
 	
 	var possible_destinations = get_posible_destinations(Gamedb.player_state.position.id)
@@ -54,13 +53,13 @@ func look_to_move() -> void:
 		var des_text:String = "    "
 		for possible_destination in possible_destinations:
 			object += 1
-			des_text += "[url=" + str(last_control_time_stamp) + "/gamehost/moveto/"+ possible_destination.id + "][wave]>> " + possible_destination.name + " <<[/wave][/url]" + "          "
+			des_text += "[url=" + possible_destination.name + "/" + str(last_control_time_stamp) + "/gamehost/moveto/"+ possible_destination.id + "][wave]>> " + possible_destination.name + " <<[/wave][/url]" + "          "
 			if object % 3 == 0:
 				SignalBus.message_output.emit(des_text)
 				des_text = "    "
-			if des_text != "    ":
-				SignalBus.message_output.emit(des_text)
-		SignalBus.message_output.emit("    [url=" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
+		if des_text != "    ":
+			SignalBus.message_output.emit(des_text)
+		SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
 		
 
 func try_to_move(id:String) -> void:
@@ -80,8 +79,119 @@ func try_to_move(id:String) -> void:
 		heading_desination_id = id
 		reached_time = get_connect(Gamedb.player_state.position.id, id)[0].travel_time
 		SignalBus.time_ticked.connect(update_moving)
-		
+
+func pause_game() -> void:
+	last_control_time_stamp = int(Time.get_unix_time_from_system())
+	SignalBus.game_circle_timer_control.emit("pause")
+	SignalBus.message_output.emit("[color=yellow][pulse]游戏已暂停...[/pulse][/color]")
+	SignalBus.message_output.emit("    [url=回到游戏/" + str(last_control_time_stamp) + "/gamehost/unpause][wave]>> 回到游戏 <<[/wave][/url]")
 	
+func unpause_game() -> void:
+	SignalBus.game_circle_timer_control.emit("roaming")
+	SignalBus.message_output.emit("[color=green]游戏继续[/color]")
+	show_info_panel()
+
+func look_around() -> void:
+	last_control_time_stamp = int(Time.get_unix_time_from_system())
+	SignalBus.message_output.emit(Gamedb.player_state.name + "观察了一下周围的环境...")
+	SignalBus.message_output.emit("▼[当前地图信息]--------------------")
+	SignalBus.message_output.emit(Gamedb.player_state.position.description)
+	SignalBus.message_output.emit("▼[附近可互动物]--------------------")
+	
+	var object = 0
+	var item_text = "    "
+	for item in Gamedb.player_state.position.item:
+		object += 1
+		item_text += "[url=%s/%s/gamehost/lookitem/%s][wave]>> %s <<[/wave][/url]" % [item.name, last_control_time_stamp, item.id, item.name]
+		if object % 5 == 0:
+			SignalBus.message_output.emit(item_text)
+			item_text = "    "
+	if item_text != "    ":
+		SignalBus.message_output.emit(item_text)
+	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
+
+func look_item(id:String) -> void:
+	last_control_time_stamp = int(Time.get_unix_time_from_system())
+	var item = get_item_by_id(id)
+	SignalBus.message_output.emit("%s靠近了%s..." % [Gamedb.player_state.name, item.name])
+	SignalBus.message_output.emit("▼[物品信息]--------------------")
+	SignalBus.message_output.emit("物品名称：%s" %[item.name])
+	SignalBus.message_output.emit("描述：%s" %[item.description])
+	SignalBus.message_output.emit("价格：%s" %[item.price])
+	SignalBus.message_output.emit("▼[可执行操作]--------------------")
+	
+	var object = 0
+	var action_text = "    "
+	for action in item.action:
+		object += 1
+		action_text += "[url=%s/%s/gamehost/interactitem/%s/%s][wave]>> %s <<[/wave][/url]" % [action, last_control_time_stamp, item.id, action, action]
+		if object % 5 == 0:
+			SignalBus.message_output.emit(action_text)
+			action_text = "    "
+	if action_text != "    ":
+		SignalBus.message_output.emit(action_text)
+	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
+
+func do_item_action(itemid:String, actionname:String) -> void:
+	var item = get_item_by_id(itemid)
+	item.action[actionname].execute()
+
+func open_bag() -> void:
+	last_control_time_stamp = int(Time.get_unix_time_from_system())
+	SignalBus.message_output.emit("打开了背包...")
+	SignalBus.message_output.emit("要查看哪个类别的物品呢？")
+	var type_text = [
+		"    [url=消耗品/%s/gamehost/checkbag/0][wave]>> 消耗品 <<[/wave][/url]" % [last_control_time_stamp],
+		"    [url=素材/%s/gamehost/checkbag/1][wave]>> 素材 <<[/wave][/url]" % [last_control_time_stamp],
+		"    [url=道具/%s/gamehost/checkbag/2][wave]>> 道具 <<[/wave][/url]" % [last_control_time_stamp],
+		"    [url=重要物品/%s/gamehost/checkbag/3][wave]>> 重要物品 <<[/wave][/url]" % [last_control_time_stamp],
+		"    [url=装备/%s/gamehost/checkbag/4][wave]>> 装备 <<[/wave][/url]" % [last_control_time_stamp],
+	]
+	
+	var output_text:String = ""
+	for text in type_text:
+		output_text += text
+	SignalBus.message_output.emit(output_text)
+	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
+
+func check_bag(type:int) -> void:
+	last_control_time_stamp = int(Time.get_unix_time_from_system())
+	
+	var type_text:String = ""
+	match type:
+		0:
+			type_text = "消耗品"
+		1:
+			type_text = "素材"
+		2:
+			type_text = "道具"
+		3:
+			type_text = "重要物品"
+		4:
+			type_text = "装备"
+	
+	SignalBus.message_output.emit("▼[背包里的%s]--------------------" % [type_text])
+	
+	var object = 0
+	var item_text = "    "
+	for item in Gamedb.player_state.bag:
+		if item.type == type:
+			object += 1
+			item_text += "[url=%s/%s/gamehost/lookbagitem/%s][wave]>> %s <<[/wave][/url]" % [item.name, last_control_time_stamp, item.id, item.name]
+			if object % 5 == 0:
+				SignalBus.message_output.emit(item_text)
+				item_text = "    "
+	if item_text != "    ":
+		SignalBus.message_output.emit(item_text)
+	
+	if object == 0:
+		SignalBus.message_output.emit("    没有在背包里找到这个种类的物品")
+	
+	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/bag][wave]>> 返回 <<[/wave][/url]")
+
+
+
+
 func update_moving() -> void:
 	reached_time -= 1
 	if reached_time <= 0:
@@ -113,14 +223,34 @@ func get_destination_by_id(id:String) -> Destination:
 			return des
 	return
 
+func get_item_by_id(id:String) -> Item:
+	for item in Gamedb.player_state.position.item:
+		if item.id == id:
+			return item
+	return
+
 func handle_text_click(meta) -> void:
-	if meta[1] != "gamehost":
+	if meta[2] != "gamehost":
 		return
 	
-	match meta[2]:
+	match meta[3]:
 		"move":
 			look_to_move()
 		"moveto":
-			try_to_move(meta[3])
+			try_to_move(meta[4])
 		"info":
 			show_info_panel()
+		"pause":
+			pause_game()
+		"unpause":
+			unpause_game()
+		"lookaround":
+			look_around()
+		"lookitem":
+			look_item(meta[4])
+		"interactitem":
+			do_item_action(meta[4], meta[5])
+		"bag":
+			open_bag()
+		"checkbag":
+			check_bag(int(meta[4]))

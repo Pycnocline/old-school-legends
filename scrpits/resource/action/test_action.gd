@@ -5,3 +5,4 @@ extends Action
 
 func execute() -> void:
 	SignalBus.message_output.emit(message)
+	GameHost.show_info_panel()

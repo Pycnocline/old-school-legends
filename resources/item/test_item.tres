@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://irsb20gcwiml"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://irsb20gcwiml"]
 
 [ext_resource type="Script" uid="uid://5mu4b68ii605" path="res://scrpits/resource/action.gd" id="1_6cq0w"]
 [ext_resource type="Script" uid="uid://148idusmri57" path="res://scrpits/resource/item.gd" id="2_dgy0w"]
+[ext_resource type="Resource" uid="uid://kyimoha5m77w" path="res://resources/action/test_action.tres" id="2_tgknf"]
 
 [resource]
 script = ExtResource("2_dgy0w")
 id = "test_item"
 name = "测试物品"
 description = "测试用的物品"
-type = null
+type = 2
+action = Dictionary[String, ExtResource("1_6cq0w")]({
+"互动": ExtResource("2_tgknf")
+})
 metadata/_custom_type_script = "uid://148idusmri57"
