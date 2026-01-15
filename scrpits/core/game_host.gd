@@ -108,12 +108,15 @@ func look_around() -> void:
 			item_text = "    "
 	if item_text != "    ":
 		SignalBus.message_output.emit(item_text)
+	
+	if object == 0:
+		SignalBus.message_output.emit("附近没有可互动的物品")
 	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
 
 func look_item(id:String) -> void:
 	last_control_time_stamp = int(Time.get_unix_time_from_system())
-	var item = get_item_by_id(id)
-	SignalBus.message_output.emit("%s靠近了%s..." % [Gamedb.player_state.name, item.name])
+	var item = Gamedb.all_items[id]
+	SignalBus.message_output.emit("%s凑近看了看%s..." % [Gamedb.player_state.name, item.name])
 	SignalBus.message_output.emit("▼[物品信息]--------------------")
 	SignalBus.message_output.emit("物品名称：%s" %[item.name])
 	SignalBus.message_output.emit("描述：%s" %[item.description])
@@ -123,18 +126,20 @@ func look_item(id:String) -> void:
 	var object = 0
 	var action_text = "    "
 	for action in item.action:
-		object += 1
-		action_text += "[url=%s/%s/gamehost/interactitem/%s/%s][wave]>> %s <<[/wave][/url]" % [action, last_control_time_stamp, item.id, action, action]
-		if object % 5 == 0:
-			SignalBus.message_output.emit(action_text)
-			action_text = "    "
+		if item.is_in_bag == item.action[action].required_in_bag or item.is_in_destination == item.action[action].required_in_destination:
+			object += 1
+			action_text += "[url=%s/%s/gamehost/interactitem/%s/%s][wave]>> %s <<[/wave][/url]" % [action, last_control_time_stamp, item.id, action, action] + "          "
+			if object % 5 == 0:
+				SignalBus.message_output.emit(action_text)
+				action_text = "    "
+
 	if action_text != "    ":
 		SignalBus.message_output.emit(action_text)
 	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
 
 func do_item_action(itemid:String, actionname:String) -> void:
-	var item = get_item_by_id(itemid)
-	item.action[actionname].execute()
+	var item = Gamedb.all_items[itemid]
+	item.action[actionname].execute(Gamedb.player_state, item, Gamedb.player_state.position, actionname)
 
 func open_bag() -> void:
 	last_control_time_stamp = int(Time.get_unix_time_from_system())
@@ -142,10 +147,10 @@ func open_bag() -> void:
 	SignalBus.message_output.emit("要查看哪个类别的物品呢？")
 	var type_text = [
 		"    [url=消耗品/%s/gamehost/checkbag/0][wave]>> 消耗品 <<[/wave][/url]" % [last_control_time_stamp],
-		"    [url=素材/%s/gamehost/checkbag/1][wave]>> 素材 <<[/wave][/url]" % [last_control_time_stamp],
-		"    [url=道具/%s/gamehost/checkbag/2][wave]>> 道具 <<[/wave][/url]" % [last_control_time_stamp],
-		"    [url=重要物品/%s/gamehost/checkbag/3][wave]>> 重要物品 <<[/wave][/url]" % [last_control_time_stamp],
-		"    [url=装备/%s/gamehost/checkbag/4][wave]>> 装备 <<[/wave][/url]" % [last_control_time_stamp],
+		"          [url=素材/%s/gamehost/checkbag/1][wave]>> 素材 <<[/wave][/url]" % [last_control_time_stamp],
+		"          [url=道具/%s/gamehost/checkbag/2][wave]>> 道具 <<[/wave][/url]" % [last_control_time_stamp],
+		"          [url=重要物品/%s/gamehost/checkbag/3][wave]>> 重要物品 <<[/wave][/url]" % [last_control_time_stamp],
+		"          [url=装备/%s/gamehost/checkbag/4][wave]>> 装备 <<[/wave][/url]" % [last_control_time_stamp],
 	]
 	
 	var output_text:String = ""
@@ -177,7 +182,7 @@ func check_bag(type:int) -> void:
 	for item in Gamedb.player_state.bag:
 		if item.type == type:
 			object += 1
-			item_text += "[url=%s/%s/gamehost/lookbagitem/%s][wave]>> %s <<[/wave][/url]" % [item.name, last_control_time_stamp, item.id, item.name]
+			item_text += "[url=%s/%s/gamehost/lookitem/%s][wave]>> %s <<[/wave][/url]" % [item.name, last_control_time_stamp, item.id, item.name]
 			if object % 5 == 0:
 				SignalBus.message_output.emit(item_text)
 				item_text = "    "
@@ -188,9 +193,6 @@ func check_bag(type:int) -> void:
 		SignalBus.message_output.emit("    没有在背包里找到这个种类的物品")
 	
 	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/bag][wave]>> 返回 <<[/wave][/url]")
-
-
-
 
 func update_moving() -> void:
 	reached_time -= 1
@@ -221,12 +223,6 @@ func get_destination_by_id(id:String) -> Destination:
 	for des in Gamedb.all_destinations:
 		if des.id == id:
 			return des
-	return
-
-func get_item_by_id(id:String) -> Item:
-	for item in Gamedb.player_state.position.item:
-		if item.id == id:
-			return item
 	return
 
 func handle_text_click(meta) -> void:

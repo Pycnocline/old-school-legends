@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Collect" load_steps=2 format=3 uid="uid://ci6ejc6lq542t"]
+
+[ext_resource type="Script" uid="uid://b3s7ffwjs0ls7" path="res://scrpits/resource/action/collect.gd" id="1_6jsjq"]
+
+[resource]
+script = ExtResource("1_6jsjq")
+required_in_bag = false
+metadata/_custom_type_script = "uid://b3s7ffwjs0ls7"

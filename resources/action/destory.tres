@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Destory" load_steps=2 format=3 uid="uid://c5lfh8i0ergfy"]
+
+[ext_resource type="Script" uid="uid://cpdnjfttcrl3" path="res://scrpits/resource/action/destory.gd" id="1_2nn5f"]
+
+[resource]
+script = ExtResource("1_2nn5f")
+metadata/_custom_type_script = "uid://cpdnjfttcrl3"

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_23ha3")
-message = "哇袄！！！"
+message = "{item_name}对{subject}大叫了一声：哇袄！！！"
 metadata/_custom_type_script = "uid://dwk2aa0spt5g"

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Place" load_steps=2 format=3 uid="uid://x5rxj77f8nts"]
+
+[ext_resource type="Script" uid="uid://8eqbjdhmey5j" path="res://scrpits/resource/action/place.gd" id="1_ak5ts"]
+
+[resource]
+script = ExtResource("1_ak5ts")
+required_in_destination = false
+metadata/_custom_type_script = "uid://8eqbjdhmey5j"

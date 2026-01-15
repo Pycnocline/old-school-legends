@@ -1,16 +1,21 @@
-[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://irsb20gcwiml"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://irsb20gcwiml"]
 
 [ext_resource type="Script" uid="uid://5mu4b68ii605" path="res://scrpits/resource/action.gd" id="1_6cq0w"]
 [ext_resource type="Script" uid="uid://148idusmri57" path="res://scrpits/resource/item.gd" id="2_dgy0w"]
 [ext_resource type="Resource" uid="uid://kyimoha5m77w" path="res://resources/action/test_action.tres" id="2_tgknf"]
+[ext_resource type="Resource" uid="uid://ci6ejc6lq542t" path="res://resources/action/collect.tres" id="3_3a4rc"]
+[ext_resource type="Resource" uid="uid://x5rxj77f8nts" path="res://resources/action/place.tres" id="4_4rces"]
+[ext_resource type="Resource" uid="uid://c5lfh8i0ergfy" path="res://resources/action/destory.tres" id="5_5n0a4"]
 
 [resource]
 script = ExtResource("2_dgy0w")
-id = "test_item"
 name = "测试物品"
 description = "测试用的物品"
 type = 2
 action = Dictionary[String, ExtResource("1_6cq0w")]({
-"互动": ExtResource("2_tgknf")
+"互动": ExtResource("2_tgknf"),
+"捡起": ExtResource("3_3a4rc"),
+"放置": ExtResource("4_4rces"),
+"销毁": ExtResource("5_5n0a4")
 })
 metadata/_custom_type_script = "uid://148idusmri57"

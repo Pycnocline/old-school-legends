@@ -2,7 +2,7 @@ class_name Item
 extends Resource
 
 @export_category("物品基本信息")
-@export var id: String
+var id: String
 @export var name: String
 @export var description: String
 @export var price: int
@@ -13,3 +13,7 @@ extends Resource
 
 @export_category("功能和方法")
 @export var action: Dictionary[String, Action]
+
+@export_category("位置")
+@export var is_in_bag:bool = false
+@export var is_in_destination = true
