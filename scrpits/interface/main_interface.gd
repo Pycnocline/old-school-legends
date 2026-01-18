@@ -9,6 +9,7 @@ func _ready() -> void:
 	Gamedb.load_all_destinations()
 	Gamedb.load_all_destination_connect()
 	Gamedb.load_player_state()
+	Gamedb.load_all_character()
 	SignalBus.message_output.emit("启动完毕")
 	
 	game_circle_timer.start()

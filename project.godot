@@ -24,6 +24,7 @@ GameManager="*res://scrpits/core/game_manager.gd"
 CommandHandler="*res://scrpits/core/command_handler.gd"
 TimeSystem="*res://scrpits/core/time_system.gd"
 GameHost="*res://scrpits/core/game_host.gd"
+HookHandler="*res://scrpits/core/hook_handler.gd"
 
 [display]
 

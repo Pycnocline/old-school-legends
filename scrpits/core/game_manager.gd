@@ -9,6 +9,9 @@ func look_for_item() -> void:
 
 func do_game_circle() -> void:
 	DisplayServer.window_set_title("Old School Legends - " + TimeSystem.get_time_string())
+	if Gamedb.player_state != Gamedb.old_player_state:
+		SignalBus.character_hook.emit(Gamedb.player_state)
+	Gamedb.old_player_state = Gamedb.player_state.duplicate(true)
 
 func set_game_state(state:String) -> void:
 	SignalBus.game_circle_timer_control.emit(state)

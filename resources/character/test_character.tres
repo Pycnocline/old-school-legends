@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Character" load_steps=9 format=3 uid="uid://jl7c5lph0scf"]
+
+[ext_resource type="Script" uid="uid://148idusmri57" path="res://scrpits/resource/item.gd" id="1_vjj83"]
+[ext_resource type="Script" uid="uid://5mu4b68ii605" path="res://scrpits/resource/action.gd" id="1_vx2oi"]
+[ext_resource type="Script" uid="uid://clbd5qvixut8n" path="res://scrpits/resource/player_data.gd" id="2_2gt0q"]
+[ext_resource type="Script" uid="uid://bpkb50sp7a6j0" path="res://scrpits/resource/character.gd" id="3_vx2oi"]
+[ext_resource type="Resource" uid="uid://crl0suxrvv2s6" path="res://resources/destination/test_destination.tres" id="4_vx2oi"]
+[ext_resource type="Resource" uid="uid://bnipc4swtl6u5" path="res://resources/story/test_character/test_character_1.tres" id="6_kv45o"]
+[ext_resource type="Resource" uid="uid://d1fi88uk405o0" path="res://resources/story/test_character/test_character_2.tres" id="7_gddbt"]
+[ext_resource type="Resource" uid="uid://cu8imiftyrq4l" path="res://resources/story/test_character/test_character_3.tres" id="8_j6a18"]
+
+[resource]
+script = ExtResource("3_vx2oi")
+id = "test_character"
+name = "测试角色"
+position = ExtResource("4_vx2oi")
+story = [ExtResource("6_kv45o"), ExtResource("7_gddbt"), ExtResource("8_j6a18")]
+metadata/_custom_type_script = "uid://bpkb50sp7a6j0"

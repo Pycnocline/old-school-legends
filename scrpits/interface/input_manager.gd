@@ -16,7 +16,9 @@ func initialize_input_line() -> void:
 # 响应用户输入并发送信号
 func _on_input_line_line_edit_text_submitted(new_text: String) -> void:
 	input_line_line_edit.text = ""
-	if new_text.begins_with("/"):
+	if new_text == "":
+		SignalBus.input_continue.emit()
+	elif new_text.begins_with("/"):
 		CommandHandler.handle_command(new_text)
 	else:
 		SignalBus.input_confirmed.emit(new_text)

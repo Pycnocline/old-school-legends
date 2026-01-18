@@ -13,11 +13,16 @@ func show_info_panel() -> void:
 	
 	SignalBus.message_output.emit("[hr]")
 	SignalBus.message_output.emit(TimeSystem.get_time_string() + "  -  " + Gamedb.player_state.position.name)
-	SignalBus.message_output.emit("▼[队伍状态信息]--------------------")
+	
+	SignalBus.message_output.emit("▼[场景中的角色]--------------------")
 	var data_text: String = "    >> " + Gamedb.player_state.name + "    "
 	for data in Gamedb.player_state.data:
 		data_text += data.name + " " + str(data.value) + "/" + str(data.upper_limit) + " | "
 	SignalBus.message_output.emit(data_text)
+	
+	for character in Gamedb.get_character_by_destination_id(Gamedb.player_state.position.id):
+		SignalBus.message_output.emit("    [url=%s/%s/gamehost/interactcharacter/%s][wave]>> %s[/wave][/url]" % [character.name, str(last_control_time_stamp), character.id, character.name])
+	
 	SignalBus.message_output.emit("▼[可用行动列表]--------------------")
 	
 	var available_action: Array = [
@@ -203,6 +208,24 @@ func update_moving() -> void:
 		show_info_panel()
 		
 
+func interactcharacter(characterid:String) -> void:
+	last_control_time_stamp = int(Time.get_unix_time_from_system())
+	var character = Gamedb.all_character[characterid]
+	
+	for story in character.story:
+		if not Gamedb.player_state.flag.any(func(item): return story.not_flag.has(item)) and story.required_flag.all(func(item): return Gamedb.player_state.flag.has(item)):
+			SignalBus.message_output.emit("    [url=%s/%s/gamehost/characterstory/%s/%s][wave]>> %s <<[/wave][/url]" % [story.type, str(last_control_time_stamp), characterid, story.type, story.type])
+	SignalBus.message_output.emit("    [url="+ "返回"  + "/" + str(last_control_time_stamp) + "/gamehost/info][wave]>> 返回 <<[/wave][/url]")
+
+func characterstory(characterid:String, storyid:String) -> void:
+	var character = Gamedb.all_character[characterid]
+	for story in character.story:
+		if story.type == storyid:
+			var instance = story.story.new()
+			instance.execute(Gamedb.player_state, character)
+			return
+
+
 
 
 func get_posible_destinations(id:String) -> Array[Destination]:
@@ -228,7 +251,7 @@ func get_destination_by_id(id:String) -> Destination:
 func handle_text_click(meta) -> void:
 	if meta[2] != "gamehost":
 		return
-	
+	print(meta)
 	match meta[3]:
 		"move":
 			look_to_move()
@@ -250,3 +273,7 @@ func handle_text_click(meta) -> void:
 			open_bag()
 		"checkbag":
 			check_bag(int(meta[4]))
+		"interactcharacter":
+			interactcharacter(meta[4])
+		"characterstory":
+			characterstory(meta[4], meta[5])

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Story" load_steps=3 format=3 uid="uid://cu8imiftyrq4l"]
+
+[ext_resource type="Script" uid="uid://dkb4e5kv4jw2t" path="res://scrpits/resource/story.gd" id="1_2u5wd"]
+[ext_resource type="Script" uid="uid://dwptynfcw85ro" path="res://scrpits/resource/story/test_character/test_character3.gd" id="2_dtkpd"]
+
+[resource]
+script = ExtResource("1_2u5wd")
+type = "测试任务-去测试地点2转一圈-未完成"
+required_flag = Array[String](["测试任务已接取"])
+story = ExtResource("2_dtkpd")
+metadata/_custom_type_script = "uid://dkb4e5kv4jw2t"
